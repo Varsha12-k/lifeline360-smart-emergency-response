@@ -1,0 +1,2856 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>LifeLine 360 | Emergency Response</title>
+
+    <!-- Leaflet Map -->
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    >
+
+    <!-- Main Design -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- =========================================================
+     LOGIN SCREEN
+========================================================= -->
+
+<section id="loginScreen" class="login-screen">
+
+    <div class="login-left">
+
+        <div class="login-brand">
+
+            <div class="brand-mark">
+                <span>+</span>
+            </div>
+
+            <div>
+                <h1>LifeLine <span>360</span></h1>
+                <p>Emergency Response System</p>
+            </div>
+
+        </div>
+
+
+        <div class="login-content">
+
+            <span class="eyebrow">
+                EMERGENCY RESPONSE PLATFORM
+            </span>
+
+            <h2>
+                Every second matters.
+                <br>
+                <span>Respond smarter.</span>
+            </h2>
+
+            <p>
+                Coordinate emergency incidents, ambulances and nearby
+                healthcare facilities through one connected platform.
+            </p>
+
+
+            <div class="login-features">
+
+                <div>
+                    <span>01</span>
+                    <p>Report emergencies quickly</p>
+                </div>
+
+                <div>
+                    <span>02</span>
+                    <p>Identify available resources</p>
+                </div>
+
+                <div>
+                    <span>03</span>
+                    <p>Locate nearby hospitals</p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="login-right">
+
+        <div class="login-card">
+
+            <div class="mobile-brand">
+
+                <div class="brand-mark">
+                    <span>+</span>
+                </div>
+
+                <h2>LifeLine 360</h2>
+
+            </div>
+
+
+            <span class="eyebrow">
+                SECURE ACCESS
+            </span>
+
+            <h2>Welcome back</h2>
+
+            <p class="login-subtitle">
+                Sign in to access the emergency response platform.
+            </p>
+
+
+            <form id="loginForm">
+
+                <label>Username</label>
+
+                <div class="input-wrapper">
+                    <span>◉</span>
+
+                    <input
+                        type="text"
+                        id="loginUsername"
+                        placeholder="Enter username"
+                        required
+                    >
+                </div>
+
+
+                <label>Password</label>
+
+                <div class="input-wrapper">
+                    <span>●</span>
+
+                    <input
+                        type="password"
+                        id="loginPassword"
+                        placeholder="Enter password"
+                        required
+                    >
+                </div>
+
+
+                <div id="loginError" class="login-error"></div>
+
+
+                <button
+                    class="primary-button login-button"
+                    type="submit"
+                >
+                    Sign In
+                    <span>→</span>
+                </button>
+
+            </form>
+
+
+            <p class="security-note">
+                🔒 Secure emergency operations environment
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     APPLICATION
+========================================================= -->
+
+<div id="app" class="app hidden">
+
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-brand">
+
+            <div class="brand-mark small">
+                <span>+</span>
+            </div>
+
+            <div>
+                <h1>LifeLine <span>360</span></h1>
+                <p>Emergency Response</p>
+            </div>
+
+        </div>
+
+
+        <nav class="sidebar-nav">
+
+            <div class="nav-section">
+
+                <span>MAIN</span>
+
+
+                <button
+                    class="nav-item active"
+                    data-screen="dashboard"
+                    type="button"
+                >
+                    <span class="nav-icon">⌂</span>
+                    <span>Dashboard</span>
+                </button>
+
+
+                <button
+                    class="nav-item"
+                    data-screen="emergency"
+                    type="button"
+                >
+                    <span class="nav-icon">🚨</span>
+                    <span>Report Emergency</span>
+                </button>
+
+
+                <button
+                    class="nav-item"
+                    data-screen="history"
+                    type="button"
+                >
+                    <span class="nav-icon">📋</span>
+                    <span>Emergency History</span>
+                </button>
+
+            </div>
+
+
+
+            <div class="nav-section">
+
+                <span>RESOURCE NETWORK</span>
+
+
+                <button
+                    class="nav-item"
+                    data-screen="ambulances"
+                    type="button"
+                >
+                    <span class="nav-icon">🚑</span>
+                    <span>Ambulance Network</span>
+                </button>
+
+
+                <button
+                    class="nav-item"
+                    data-screen="hospitals"
+                    type="button"
+                >
+                    <span class="nav-icon">🏥</span>
+                    <span>Hospital Network</span>
+                </button>
+
+
+                <button
+                    class="nav-item"
+                    data-screen="patients"
+                    type="button"
+                >
+                    <span class="nav-icon">♙</span>
+                    <span>Patients</span>
+                </button>
+
+            </div>
+
+
+
+            <div class="nav-section">
+
+                <span>REPORTING</span>
+
+
+                <button
+                    class="nav-item"
+                    data-screen="report"
+                    type="button"
+                >
+                    <span class="nav-icon">📄</span>
+                    <span>Emergency Report</span>
+                </button>
+
+            </div>
+
+        </nav>
+
+
+
+        <div class="sidebar-bottom">
+
+            <div class="system-status">
+
+                <span class="status-dot"></span>
+
+                <div>
+                    <strong>System Online</strong>
+                    <small>All services operational</small>
+                </div>
+
+            </div>
+
+
+            <div class="user-profile">
+
+                <div class="avatar">
+                    V
+                </div>
+
+                <div class="user-info">
+                    <strong>Varsha</strong>
+                    <small>Response Coordinator</small>
+                </div>
+
+                <button
+                    id="logoutButton"
+                    title="Logout"
+                    type="button"
+                >
+                    ↪
+                </button>
+
+            </div>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- =====================================================
+         MAIN AREA
+    ====================================================== -->
+
+    <main class="main-area">
+
+
+        <!-- TOP BAR -->
+
+        <header class="topbar">
+
+            <div>
+
+                <span class="topbar-label">
+                    LIFELINE 360
+                </span>
+
+                <h2 id="pageTitle">
+                    Dashboard
+                </h2>
+
+            </div>
+
+
+            <div class="topbar-right">
+
+                <div class="live-status">
+                    <span></span>
+                    LIVE
+                </div>
+
+                <div
+                    class="date-display"
+                    id="currentDate"
+                ></div>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =================================================
+             DASHBOARD
+        ================================================== -->
+
+        <section
+            id="screen-dashboard"
+            class="screen active-screen"
+        >
+
+            <div class="welcome-section">
+
+                <div>
+
+                    <span class="eyebrow">
+                        EMERGENCY RESPONSE PLATFORM
+                    </span>
+
+                    <h1>
+                        Ready when every
+                        <span>second matters.</span>
+                    </h1>
+
+                    <p>
+                        Coordinate emergency resources, locate nearby
+                        hospitals and manage patient information from one place.
+                    </p>
+
+
+                    <button
+                        class="primary-button"
+                        onclick="showScreen('emergency')"
+                        type="button"
+                    >
+                        <span>Report an Emergency</span>
+                        <span>→</span>
+                    </button>
+
+                </div>
+
+
+                <div class="welcome-visual">
+
+                    <div class="pulse-ring ring-one"></div>
+                    <div class="pulse-ring ring-two"></div>
+
+                    <div class="response-orb">
+                        <span>+</span>
+                    </div>
+
+
+                    <div class="floating-card card-one">
+                        <span>🚑</span>
+                        <strong>Response</strong>
+                        <small>Resources</small>
+                    </div>
+
+
+                    <div class="floating-card card-two">
+                        <span>🏥</span>
+                        <strong>Hospital</strong>
+                        <small>Discovery</small>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="dashboard-grid">
+
+                <div class="overview-card blue-card">
+
+                    <div class="overview-icon">
+                        🚨
+                    </div>
+
+                    <div>
+
+                        <span>EMERGENCY RESPONSE</span>
+
+                        <h3>
+                            Rapid incident registration
+                        </h3>
+
+                        <p>
+                            Capture emergency details and start resource matching.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="overview-card green-card">
+
+                    <div class="overview-icon">
+                        🚑
+                    </div>
+
+                    <div>
+
+                        <span>AMBULANCE NETWORK</span>
+
+                        <h3>
+                            Resource availability
+                        </h3>
+
+                        <p>
+                            View available ambulances maintained by the system.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="overview-card purple-card">
+
+                    <div class="overview-icon">
+                        🏥
+                    </div>
+
+                    <div>
+
+                        <span>HOSPITAL DISCOVERY</span>
+
+                        <h3>
+                            Location-based search
+                        </h3>
+
+                        <p>
+                            Discover hospitals using the system's location data.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="how-section">
+
+                <div class="section-heading">
+
+                    <span class="eyebrow">
+                        HOW IT WORKS
+                    </span>
+
+                    <h2>
+                        From incident to response
+                    </h2>
+
+                </div>
+
+
+                <div class="steps">
+
+                    <div class="step">
+
+                        <div class="step-number">
+                            01
+                        </div>
+
+                        <div>
+
+                            <h3>
+                                Report
+                            </h3>
+
+                            <p>
+                                Enter the emergency type, severity and location.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="step-line"></div>
+
+
+                    <div class="step">
+
+                        <div class="step-number">
+                            02
+                        </div>
+
+                        <div>
+
+                            <h3>
+                                Match
+                            </h3>
+
+                            <p>
+                                Identify available emergency resources.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="step-line"></div>
+
+
+                    <div class="step">
+
+                        <div class="step-number">
+                            03
+                        </div>
+
+                        <div>
+
+                            <h3>
+                                Respond
+                            </h3>
+
+                            <p>
+                                View the response plan and map locations.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             EMERGENCY
+        ================================================== -->
+
+        <section
+            id="screen-emergency"
+            class="screen"
+        >
+
+            <div class="page-intro">
+
+                <span class="eyebrow">
+                    NEW INCIDENT
+                </span>
+
+                <h1>
+                    Register an emergency
+                </h1>
+
+                <p>
+                    Provide the incident details below to identify available
+                    emergency resources.
+                </p>
+
+            </div>
+
+
+            <div class="emergency-layout">
+
+
+                <div class="form-card">
+
+                    <div class="form-header">
+
+                        <div>
+
+                            <span class="form-step">
+                                STEP 01
+                            </span>
+
+                            <h2>
+                                Incident details
+                            </h2>
+
+                        </div>
+
+                        <div class="required-label">
+                            * Required
+                        </div>
+
+                    </div>
+
+
+                    <form id="emergencyForm">
+
+                        <div class="form-grid">
+
+                            <div class="form-group">
+
+                                <label>
+                                    Emergency Type
+                                    <span>*</span>
+                                </label>
+
+                                <select
+                                    id="emergencyType"
+                                    required
+                                >
+
+                                    <option value="">
+                                        Select emergency type
+                                    </option>
+
+                                    <option value="Accident">
+                                        Accident
+                                    </option>
+
+                                    <option value="Heart Attack">
+                                        Heart Attack
+                                    </option>
+
+                                    <option value="Breathing Problem">
+                                        Breathing Problem
+                                    </option>
+
+                                    <option value="Fire Injury">
+                                        Fire Injury
+                                    </option>
+
+                                    <option value="Other">
+                                        Other
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label>
+                                    Severity
+                                    <span>*</span>
+                                </label>
+
+                                <select
+                                    id="severity"
+                                    required
+                                >
+
+                                    <option value="">
+                                        Select severity
+                                    </option>
+
+                                    <option value="Low">
+                                        Low
+                                    </option>
+
+                                    <option value="Medium">
+                                        Medium
+                                    </option>
+
+                                    <option value="High">
+                                        High
+                                    </option>
+
+                                    <option value="Critical">
+                                        Critical
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Emergency Location
+                                <span>*</span>
+                            </label>
+
+                            <div class="location-input">
+
+                                <span>📍</span>
+
+                                <input
+                                    type="text"
+                                    id="emergencyLocation"
+                                    placeholder="Example: Whitefield"
+                                    required
+                                >
+
+                            </div>
+
+                            <small>
+                                Enter an area, locality or neighbourhood.
+                            </small>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Situation Description
+                            </label>
+
+                            <textarea
+                                id="emergencyDescription"
+                                rows="5"
+                                placeholder="Briefly describe what happened..."
+                            ></textarea>
+
+                        </div>
+
+
+                        <div class="form-actions">
+
+                            <button
+                                type="button"
+                                class="secondary-button"
+                                onclick="showScreen('dashboard')"
+                            >
+                                Cancel
+                            </button>
+
+
+                            <button
+                                type="submit"
+                                class="primary-button"
+                            >
+                                Find Emergency Resources
+                                <span>→</span>
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+
+
+                <div class="response-info">
+
+                    <div class="info-card dark">
+
+                        <span class="eyebrow light">
+                            RESPONSE INTELLIGENCE
+                        </span>
+
+                        <h2>
+                            One incident.
+                            <br>
+                            Connected resources.
+                        </h2>
+
+                        <p>
+                            LifeLine 360 combines your emergency details
+                            with available ambulance data and location-based
+                            hospital discovery.
+                        </p>
+
+
+                        <div class="info-list">
+
+                            <div>
+                                <span>01</span>
+                                <p>
+                                    Emergency registered
+                                </p>
+                            </div>
+
+                            <div>
+                                <span>02</span>
+                                <p>
+                                    Available ambulance identified
+                                </p>
+                            </div>
+
+                            <div>
+                                <span>03</span>
+                                <p>
+                                    Nearby hospital discovered
+                                </p>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="info-card safety-card">
+
+                        <div class="safety-icon">
+                            ✓
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Designed for fast response
+                            </strong>
+
+                            <p>
+                                Keep the incident location accurate for
+                                better resource discovery.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             RESPONSE RESULT
+        ================================================== -->
+
+        <section
+            id="screen-result"
+            class="screen"
+        >
+
+
+            <!-- RESPONSE HEADER -->
+
+            <div class="result-header">
+
+                <div>
+
+                    <span class="eyebrow">
+                        RESPONSE PLAN
+                    </span>
+
+                    <h1>
+                        Response plan ready.
+                    </h1>
+
+                    <p>
+                        Emergency resources identified for this incident.
+                    </p>
+
+                </div>
+
+
+                <div class="case-id-box">
+
+                    <span>
+                        CASE ID
+                    </span>
+
+                    <strong id="resultCaseId">
+                        EMG-000
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- INCIDENT SUMMARY -->
+
+            <div class="incident-summary">
+
+                <div>
+
+                    <span>
+                        EMERGENCY
+                    </span>
+
+                    <strong id="resultType">
+                        —
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        SEVERITY
+                    </span>
+
+                    <strong id="resultSeverity">
+                        —
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        LOCATION
+                    </span>
+
+                    <strong id="resultLocation">
+                        —
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 RESOURCE CARDS
+            ================================================== -->
+
+            <div class="result-grid">
+
+
+                <!-- AMBULANCE -->
+
+                <div class="resource-card">
+
+                    <div class="resource-card-top">
+
+                        <div class="resource-icon ambulance">
+                            🚑
+                        </div>
+
+                        <span
+                            class="resource-status"
+                            id="ambulanceStatus"
+                        >
+                            AVAILABLE
+                        </span>
+
+                    </div>
+
+
+                    <span class="resource-label">
+                        AMBULANCE RESOURCE
+                    </span>
+
+
+                    <h2 id="resultAmbulanceNumber">
+                        Finding ambulance...
+                    </h2>
+
+
+                    <div class="resource-details">
+
+                        <div>
+
+                            <span>
+                                Driver
+                            </span>
+
+                            <strong id="resultDriver">
+                                Matching resource...
+                            </strong>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                Location
+                            </span>
+
+                            <strong id="resultAmbulanceLocation">
+                                —
+                            </strong>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                Type
+                            </span>
+
+                            <strong id="resultAmbulanceType">
+                                Emergency Ambulance
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        id="assignAmbulanceButton"
+                        class="primary-button"
+                        type="button"
+                        onclick="assignAmbulance()"
+                    >
+                        🚑 Assign Ambulance
+                        <span>→</span>
+                    </button>
+
+                </div>
+
+
+
+                <!-- HOSPITAL -->
+
+                <div class="resource-card">
+
+                    <div class="resource-card-top">
+
+                        <div class="resource-icon hospital">
+                            🏥
+                        </div>
+
+                        <span class="resource-status">
+                            EMERGENCY SUPPORT
+                        </span>
+
+                    </div>
+
+
+                    <span class="resource-label">
+                        HOSPITAL RECOMMENDED
+                    </span>
+
+
+                    <h2 id="resultHospital">
+                        Discovering nearby hospital...
+                    </h2>
+
+
+                    <div class="resource-details">
+
+                        <div>
+
+                            <span>
+                                Location
+                            </span>
+
+                            <strong id="resultHospitalAddress">
+                                Searching map data...
+                            </strong>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                Emergency Services
+                            </span>
+
+                            <strong id="resultHospitalEmergency">
+                                —
+                            </strong>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                Speciality
+                            </span>
+
+                            <strong id="resultHospitalSpeciality">
+                                —
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        id="openHospitalMap"
+                        class="map-button"
+                        type="button"
+                        disabled
+                    >
+                        📍 Open Hospital Map
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 RESPONSE ROUTE
+            ================================================== -->
+
+            <div class="route-card">
+
+                <div class="section-label">
+                    RESPONSE ROUTE
+                </div>
+
+                <h2>
+                    Ambulance to Hospital
+                </h2>
+
+                <p class="route-subtitle">
+                    Estimated route from the assigned ambulance to the recommended hospital.
+                </p>
+
+
+                <div class="route-summary">
+
+                    <div class="route-point">
+
+                        <div class="route-icon ambulance-route-icon">
+                            🚑
+                        </div>
+
+                        <div>
+
+                            <span>
+                                AMBULANCE FROM
+                            </span>
+
+                            <strong id="routeAmbulanceLocation">
+                                Finding location...
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="route-arrow">
+                        →
+                    </div>
+
+
+                    <div class="route-point">
+
+                        <div class="route-icon hospital-route-icon">
+                            🏥
+                        </div>
+
+                        <div>
+
+                            <span>
+                                HOSPITAL TO
+                            </span>
+
+                            <strong id="routeHospitalName">
+                                Finding hospital...
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="route-stats">
+
+                    <div class="route-stat">
+
+                        <span>
+                            Distance
+                        </span>
+
+                        <strong id="routeDistance">
+                            -- km
+                        </strong>
+
+                    </div>
+
+
+                    <div class="route-stat">
+
+                        <span>
+                            Estimated Time
+                        </span>
+
+                        <strong id="routeDuration">
+                            -- min
+                        </strong>
+
+                    </div>
+
+
+                    <div class="route-stat">
+
+                        <span>
+                            Route
+                        </span>
+
+                        <strong>
+                            Driving
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 MAP
+            ================================================== -->
+
+            <div class="map-section">
+
+                <div class="map-header">
+
+                    <div>
+
+                        <span class="eyebrow">
+                            LOCATION VIEW
+                        </span>
+
+                        <h2>
+                            Emergency response map
+                        </h2>
+
+                    </div>
+
+
+                    <div class="map-legend">
+
+                        <span>
+                            <i class="legend-dot emergency"></i>
+                            Emergency
+                        </span>
+
+                        <span>
+                            <i class="legend-dot ambulance"></i>
+                            Ambulance
+                        </span>
+
+                        <span>
+                            <i class="legend-dot hospital"></i>
+                            Hospital
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div id="responseMap"></div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 RESPONSE REASONS
+            ================================================== -->
+
+            <div class="response-reasons">
+
+                <div>
+
+                    <span class="eyebrow">
+                        RESPONSE MATCH
+                    </span>
+
+                    <h2>
+                        How LifeLine 360 responded
+                    </h2>
+
+                </div>
+
+
+                <div class="reason-list">
+
+                    <div>
+
+                        <span>✓</span>
+
+                        <p>
+                            Emergency incident registered successfully.
+                        </p>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>✓</span>
+
+                        <p>
+                            Available ambulance matched to the reported area.
+                        </p>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>✓</span>
+
+                        <p>
+                            Hospital discovered using location data.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 RESULT ACTIONS
+            ================================================== -->
+
+            <div class="result-actions">
+
+                <button
+                    class="secondary-button"
+                    type="button"
+                    onclick="showScreen('dashboard')"
+                >
+                    ← Dashboard
+                </button>
+
+
+                <button
+                    class="secondary-button"
+                    type="button"
+                    onclick="showScreen('history')"
+                >
+                    📋 View History
+                </button>
+
+
+                <button
+                    class="secondary-button"
+                    type="button"
+                    onclick="showScreen('report')"
+                >
+                    📄 Emergency Report
+                </button>
+
+
+                <button
+                    class="primary-button"
+                    type="button"
+                    onclick="showScreen('emergency')"
+                >
+                    New Emergency
+                    <span>→</span>
+                </button>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             AMBULANCES
+        ================================================== -->
+
+        <section
+            id="screen-ambulances"
+            class="screen"
+        >
+
+            <div class="page-intro">
+
+                <span class="eyebrow">
+                    RESOURCE NETWORK
+                </span>
+
+                <h1>
+                    Ambulance Network
+                </h1>
+
+                <p>
+                    View registered ambulances and their current availability.
+                </p>
+
+            </div>
+
+
+            <div class="network-toolbar">
+
+                <div class="network-stat">
+
+                    <span>
+                        AVAILABLE RESOURCES
+                    </span>
+
+                    <strong id="ambulanceCount">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <button
+                    class="secondary-button"
+                    type="button"
+                    onclick="loadAmbulances()"
+                >
+                    ↻ Refresh
+                </button>
+
+            </div>
+
+
+            <div
+                id="ambulanceList"
+                class="resource-table-card"
+            >
+
+                <div class="loading-state">
+                    Loading ambulance network...
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             HOSPITALS
+        ================================================== -->
+
+        <section
+            id="screen-hospitals"
+            class="screen"
+        >
+
+            <div class="page-intro">
+
+                <span class="eyebrow">
+                    LOCATION DISCOVERY
+                </span>
+
+                <h1>
+                    Hospital Network
+                </h1>
+
+                <p>
+                    Search hospitals by location and review available facilities.
+                </p>
+
+            </div>
+
+
+            <div class="hospital-search-card">
+
+                <div class="search-box">
+
+                    <span>📍</span>
+
+                    <input
+                        id="hospitalSearchLocation"
+                        type="text"
+                        placeholder="Enter area e.g. Whitefield"
+                    >
+
+
+                    <button
+                        class="primary-button"
+                        type="button"
+                        onclick="searchHospitals()"
+                    >
+                        Search
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div
+                id="hospitalResults"
+                class="hospital-results"
+            >
+
+                <div class="empty-state">
+
+                    <div>🏥</div>
+
+                    <h3>
+                        Search for nearby hospitals
+                    </h3>
+
+                    <p>
+                        Enter a location above to discover hospitals.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             PATIENTS
+        ================================================== -->
+
+        <section
+            id="screen-patients"
+            class="screen"
+        >
+
+            <div class="page-intro">
+
+                <span class="eyebrow">
+                    PATIENT MANAGEMENT
+                </span>
+
+                <h1>
+                    Patients
+                </h1>
+
+                <p>
+                    Register and view patient information stored in the system.
+                </p>
+
+            </div>
+
+
+            <div class="patient-layout">
+
+
+                <div class="form-card">
+
+                    <div class="form-header">
+
+                        <div>
+
+                            <span class="form-step">
+                                PATIENT REGISTRATION
+                            </span>
+
+                            <h2>
+                                Add patient
+                            </h2>
+
+                        </div>
+
+                    </div>
+
+
+                    <form id="patientForm">
+
+
+                        <div class="form-grid">
+
+                            <div class="form-group">
+
+                                <label>
+                                    Name *
+                                </label>
+
+                                <input
+                                    id="patientName"
+                                    type="text"
+                                    required
+                                    placeholder="Patient name"
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label>
+                                    Age *
+                                </label>
+
+                                <input
+                                    id="patientAge"
+                                    type="number"
+                                    min="0"
+                                    required
+                                    placeholder="Age"
+                                >
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-grid">
+
+                            <div class="form-group">
+
+                                <label>
+                                    Gender *
+                                </label>
+
+                                <select
+                                    id="patientGender"
+                                    required
+                                >
+
+                                    <option value="">
+                                        Select gender
+                                    </option>
+
+                                    <option value="Male">
+                                        Male
+                                    </option>
+
+                                    <option value="Female">
+                                        Female
+                                    </option>
+
+                                    <option value="Other">
+                                        Other
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label>
+                                    Phone *
+                                </label>
+
+                                <input
+                                    id="patientPhone"
+                                    type="text"
+                                    required
+                                    placeholder="Phone number"
+                                >
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Address *
+                            </label>
+
+                            <textarea
+                                id="patientAddress"
+                                rows="3"
+                                required
+                                placeholder="Patient address"
+                            ></textarea>
+
+                        </div>
+
+
+                        <button
+                            class="primary-button"
+                            type="submit"
+                        >
+                            Register Patient
+                            <span>→</span>
+                        </button>
+
+                    </form>
+
+                </div>
+
+
+
+                <div>
+
+                    <div class="patient-list-header">
+
+                        <div>
+
+                            <span class="eyebrow">
+                                REGISTERED
+                            </span>
+
+                            <h2>
+                                Patient records
+                            </h2>
+
+                        </div>
+
+
+                        <button
+                            class="secondary-button"
+                            type="button"
+                            onclick="loadPatients()"
+                        >
+                            ↻ Refresh
+                        </button>
+
+                    </div>
+
+
+                    <div
+                        id="patientList"
+                        class="patient-list"
+                    >
+
+                        <div class="loading-state">
+                            Loading patient records...
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             EMERGENCY HISTORY
+        ================================================== -->
+
+        <section
+            id="screen-history"
+            class="screen"
+        >
+
+            <div class="page-intro">
+
+                <span class="eyebrow">
+                    INCIDENT RECORDS
+                </span>
+
+                <h1>
+                    Emergency History
+                </h1>
+
+                <p>
+                    View previously registered emergency incidents.
+                </p>
+
+            </div>
+
+
+            <div class="resource-table-card">
+
+                <div class="network-toolbar">
+
+                    <div class="network-stat">
+
+                        <span>
+                            EMERGENCY RECORDS
+                        </span>
+
+                        <strong id="historyCount">
+                            0
+                        </strong>
+
+                    </div>
+
+
+                    <button
+                        class="secondary-button"
+                        type="button"
+                        onclick="loadEmergencyHistory()"
+                    >
+                        ↻ Refresh
+                    </button>
+
+                </div>
+
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    Case ID
+                                </th>
+
+                                <th>
+                                    Emergency
+                                </th>
+
+                                <th>
+                                    Severity
+                                </th>
+
+                                <th>
+                                    Location
+                                </th>
+
+                                <th>
+                                    Status
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody id="historyList">
+
+                            <tr>
+
+                                <td colspan="5">
+                                    Loading emergency records...
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             EMERGENCY REPORT
+        ================================================== -->
+
+        <section
+            id="screen-report"
+            class="screen"
+        >
+
+            <div class="page-intro no-print">
+
+                <span class="eyebrow">
+                    REPORTING
+                </span>
+
+                <h1>
+                    Emergency Report
+                </h1>
+
+                <p>
+                    Review the emergency response information and print the report.
+                </p>
+
+            </div>
+
+
+            <div
+                id="printableReport"
+                class="form-card emergency-report"
+            >
+
+                <div class="report-header">
+
+                    <div>
+
+                        <span class="eyebrow">
+                            LIFELINE 360
+                        </span>
+
+                        <h1>
+                            Emergency Response Report
+                        </h1>
+
+                        <p>
+                            Smart Emergency Response & Hospital Coordination System
+                        </p>
+
+                    </div>
+
+
+                    <div class="case-id-box">
+
+                        <span>
+                            CASE ID
+                        </span>
+
+                        <strong id="reportCaseId">
+                            —
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="report-section">
+
+                    <span class="eyebrow">
+                        INCIDENT DETAILS
+                    </span>
+
+                    <h2>
+                        Emergency information
+                    </h2>
+
+
+                    <div class="resource-details">
+
+                        <div>
+
+                            <span>
+                                Emergency Type
+                            </span>
+
+                            <strong id="reportType">
+                                —
+                            </strong>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                Severity
+                            </span>
+
+                            <strong id="reportSeverity">
+                                —
+                            </strong>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                Location
+                            </span>
+
+                            <strong id="reportLocation">
+                                —
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="report-section">
+
+                    <span class="eyebrow">
+                        AMBULANCE
+                    </span>
+
+                    <h2>
+                        Ambulance assignment
+                    </h2>
+
+
+                    <div class="resource-details">
+
+                        <div>
+
+                            <span>
+                                Ambulance
+                            </span>
+
+                            <strong id="reportAmbulance">
+                                —
+                            </strong>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                Driver
+                            </span>
+
+                            <strong id="reportDriver">
+                                —
+                            </strong>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                Location
+                            </span>
+
+                            <strong id="reportAmbulanceLocation">
+                                —
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="report-section">
+
+                    <span class="eyebrow">
+                        HOSPITAL
+                    </span>
+
+                    <h2>
+                        Hospital recommendation
+                    </h2>
+
+
+                    <div class="resource-details">
+
+                        <div>
+
+                            <span>
+                                Hospital
+                            </span>
+
+                            <strong id="reportHospital">
+                                —
+                            </strong>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                Address
+                            </span>
+
+                            <strong id="reportHospitalAddress">
+                                —
+                            </strong>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                Emergency Support
+                            </span>
+
+                            <strong id="reportHospitalEmergency">
+                                —
+                            </strong>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                Facilities
+                            </span>
+
+                            <strong id="reportHospitalFacilities">
+                                —
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="report-section">
+
+                    <span class="eyebrow">
+                        RESPONSE STATUS
+                    </span>
+
+                    <h2>
+                        Current status
+                    </h2>
+
+                    <strong id="reportStatus">
+                        REPORTED
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="result-actions no-print">
+
+                <button
+                    class="secondary-button"
+                    type="button"
+                    onclick="showScreen('result')"
+                >
+                    ← Back to Response
+                </button>
+
+
+                <button
+                    class="primary-button"
+                    type="button"
+                    onclick="window.print()"
+                >
+                    🖨️ Print / Save Report
+                </button>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+
+<!-- =========================================================
+     TOAST
+========================================================= -->
+
+<div
+    id="toast"
+    class="toast"
+></div>
+
+
+
+<!-- =========================================================
+     LEAFLET
+========================================================= -->
+
+<script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""
+></script>
+
+
+
+<!-- =========================================================
+     MAIN JAVASCRIPT
+========================================================= -->
+
+<script src="script.js"></script>
+
+
+
+<!-- =========================================================
+     EXTRA FEATURES
+========================================================= -->
+
+<script>
+
+/* =========================================================
+   ASSIGN AMBULANCE
+========================================================= */
+
+async function assignAmbulance() {
+
+    if (!window.currentEmergency || !window.currentEmergency.id) {
+
+        showToast("Emergency case not found.", "error");
+
+        return;
+    }
+
+
+    if (!window.selectedAmbulance || !window.selectedAmbulance.id) {
+
+        showToast("No ambulance selected.", "error");
+
+        return;
+    }
+
+
+    const button =
+        document.getElementById("assignAmbulanceButton");
+
+
+    if (button) {
+
+        button.disabled = true;
+        button.textContent = "Assigning...";
+
+    }
+
+
+    try {
+
+        const ambulanceResponse =
+            await fetch(
+                `/ambulances/${window.selectedAmbulance.id}/status`,
+                {
+                    method: "PUT",
+
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+
+                    body: JSON.stringify("DISPATCHED")
+                }
+            );
+
+
+        if (!ambulanceResponse.ok) {
+
+            throw new Error(
+                "Unable to update ambulance status."
+            );
+
+        }
+
+
+        const emergencyResponse =
+            await fetch(
+                `/emergencies/${window.currentEmergency.id}/status`,
+                {
+                    method: "PUT",
+
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+
+                    body: JSON.stringify("DISPATCHED")
+                }
+            );
+
+
+        if (!emergencyResponse.ok) {
+
+            throw new Error(
+                "Unable to update emergency status."
+            );
+
+        }
+
+
+        const ambulanceStatus =
+            document.getElementById("ambulanceStatus");
+
+
+        if (ambulanceStatus) {
+
+            ambulanceStatus.textContent =
+                "DISPATCHED";
+
+        }
+
+
+        const reportStatus =
+            document.getElementById("reportStatus");
+
+
+        if (reportStatus) {
+
+            reportStatus.textContent =
+                "DISPATCHED";
+
+        }
+
+
+        if (button) {
+
+            button.disabled = true;
+
+            button.innerHTML =
+                "✓ Ambulance Assigned";
+
+        }
+
+
+        if (typeof showToast === "function") {
+
+            showToast(
+                "Ambulance assigned successfully."
+            );
+
+        }
+
+
+        prepareEmergencyReport();
+
+
+    } catch (error) {
+
+        console.error(error);
+
+
+        if (button) {
+
+            button.disabled = false;
+
+            button.innerHTML =
+                "🚑 Assign Ambulance <span>→</span>";
+
+        }
+
+
+        if (typeof showToast === "function") {
+
+            showToast(
+                "Unable to assign ambulance. Please try again."
+            );
+
+        }
+
+    }
+
+}
+
+
+
+/* =========================================================
+   PREPARE REPORT
+========================================================= */
+
+function prepareEmergencyReport() {
+
+    const mapping = {
+
+        "resultCaseId":
+            "reportCaseId",
+
+        "resultType":
+            "reportType",
+
+        "resultSeverity":
+            "reportSeverity",
+
+        "resultLocation":
+            "reportLocation",
+
+        "resultAmbulanceNumber":
+            "reportAmbulance",
+
+        "resultDriver":
+            "reportDriver",
+
+        "resultAmbulanceLocation":
+            "reportAmbulanceLocation",
+
+        "resultHospital":
+            "reportHospital",
+
+        "resultHospitalAddress":
+            "reportHospitalAddress",
+
+        "resultHospitalEmergency":
+            "reportHospitalEmergency",
+
+        "resultHospitalSpeciality":
+            "reportHospitalFacilities"
+
+    };
+
+
+    Object.keys(mapping).forEach(function(sourceId) {
+
+        const source =
+            document.getElementById(sourceId);
+
+
+        const target =
+            document.getElementById(
+                mapping[sourceId]
+            );
+
+
+        if (source && target) {
+
+            target.textContent =
+                source.textContent;
+
+        }
+
+    });
+
+
+    const ambulanceStatus =
+        document.getElementById("ambulanceStatus");
+
+
+    const reportStatus =
+        document.getElementById("reportStatus");
+
+
+    if (ambulanceStatus && reportStatus) {
+
+        reportStatus.textContent =
+            ambulanceStatus.textContent;
+
+    }
+
+}
+
+
+
+/* =========================================================
+   HOSPITAL MAP BUTTON
+========================================================= */
+
+function openHospitalMapFromResult() {
+
+    const hospital =
+        document.getElementById(
+            "resultHospital"
+        );
+
+
+    const address =
+        document.getElementById(
+            "resultHospitalAddress"
+        );
+
+
+    if (
+        !hospital ||
+        hospital.textContent.includes("Discovering") ||
+        hospital.textContent === "-"
+    ) {
+
+        return;
+
+    }
+
+
+    const query =
+        encodeURIComponent(
+            hospital.textContent +
+            " " +
+            address.textContent +
+            " Bengaluru"
+        );
+
+
+    window.open(
+        "https://www.openstreetmap.org/search?query=" +
+        query,
+        "_blank"
+    );
+
+}
+
+
+
+/* =========================================================
+   CONNECT HOSPITAL MAP BUTTON
+========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        const hospitalButton =
+            document.getElementById(
+                "openHospitalMap"
+            );
+
+
+        if (hospitalButton) {
+
+            hospitalButton.addEventListener(
+                "click",
+                openHospitalMapFromResult
+            );
+
+        }
+
+    }
+);
+
+
+
+/* =========================================================
+   EMERGENCY HISTORY
+========================================================= */
+
+async function loadEmergencyHistory() {
+
+    const historyList =
+        document.getElementById(
+            "historyList"
+        );
+
+
+    const historyCount =
+        document.getElementById(
+            "historyCount"
+        );
+
+
+    if (!historyList) return;
+
+
+    try {
+
+        const response =
+            await fetch("/emergencies");
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Unable to load emergencies"
+            );
+
+        }
+
+
+        const emergencies =
+            await response.json();
+
+
+        if (historyCount) {
+
+            historyCount.textContent =
+                emergencies.length;
+
+        }
+
+
+        if (!emergencies.length) {
+
+            historyList.innerHTML = `
+                <tr>
+                    <td colspan="5">
+                        No emergency records found.
+                    </td>
+                </tr>
+            `;
+
+            return;
+
+        }
+
+
+        historyList.innerHTML =
+            emergencies.map(function(item) {
+
+                return `
+                    <tr>
+
+                        <td>
+                            ${item.id ?? "-"}
+                        </td>
+
+                        <td>
+                            ${item.emergencyType ?? "-"}
+                        </td>
+
+                        <td>
+                            ${item.severity ?? "-"}
+                        </td>
+
+                        <td>
+                            ${item.location ?? "-"}
+                        </td>
+
+                        <td>
+                            <span class="resource-status">
+                                ${item.status ?? "REPORTED"}
+                            </span>
+                        </td>
+
+                    </tr>
+                `;
+
+            }).join("");
+
+
+    } catch (error) {
+
+        historyList.innerHTML = `
+            <tr>
+                <td colspan="5">
+                    Unable to load emergency history.
+                </td>
+            </tr>
+        `;
+
+    }
+
+}
+
+
+
+/* =========================================================
+   UPDATE REPORT WHEN SCREEN IS SHOWN
+========================================================= */
+
+const originalShowScreen =
+    window.showScreen;
+
+
+if (typeof originalShowScreen === "function") {
+
+    window.showScreen =
+        function(screenName) {
+
+            originalShowScreen(
+                screenName
+            );
+
+
+            if (screenName === "history") {
+
+                loadEmergencyHistory();
+
+            }
+
+
+            if (screenName === "report") {
+
+                setTimeout(
+                    prepareEmergencyReport,
+                    100
+                );
+
+            }
+
+        };
+
+}
+
+
+
+/* =========================================================
+   DASHBOARD COUNTS
+========================================================= */
+
+async function updateDashboardCounts() {
+
+    try {
+
+        const emergencyResponse =
+            await fetch("/emergencies");
+
+
+        if (emergencyResponse.ok) {
+
+            const emergencies =
+                await emergencyResponse.json();
+
+
+            const element =
+                document.getElementById(
+                    "dashboardEmergencyCount"
+                );
+
+
+            if (element) {
+
+                element.textContent =
+                    emergencies.length;
+
+            }
+
+        }
+
+    } catch (error) {
+
+        // Optional dashboard count.
+
+    }
+
+
+
+    try {
+
+        const ambulanceResponse =
+            await fetch("/ambulances");
+
+
+        if (ambulanceResponse.ok) {
+
+            const ambulances =
+                await ambulanceResponse.json();
+
+
+            const available =
+                ambulances.filter(
+                    ambulance =>
+                        String(
+                            ambulance.status
+                        ).toUpperCase() ===
+                        "AVAILABLE"
+                );
+
+
+            const element =
+                document.getElementById(
+                    "dashboardAmbulanceCount"
+                );
+
+
+            if (element) {
+
+                element.textContent =
+                    available.length;
+
+            }
+
+        }
+
+    } catch (error) {
+
+        // Optional dashboard count.
+
+    }
+
+
+
+    try {
+
+        const patientResponse =
+            await fetch("/patients");
+
+
+        if (patientResponse.ok) {
+
+            const patients =
+                await patientResponse.json();
+
+
+            const element =
+                document.getElementById(
+                    "dashboardPatientCount"
+                );
+
+
+            if (element) {
+
+                element.textContent =
+                    patients.length;
+
+            }
+
+        }
+
+    } catch (error) {
+
+        // Optional dashboard count.
+
+    }
+
+}
+
+
+
+/* =========================================================
+   LOAD DASHBOARD COUNTS
+========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        setTimeout(
+            updateDashboardCounts,
+            500
+        );
+
+    }
+);
+
+</script>
+
+
+</body>
+</html>
